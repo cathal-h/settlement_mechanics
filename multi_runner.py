@@ -10,40 +10,44 @@ just a name. A contract resolves YES if the winner matches its unit.
 No push: exactly one runner wins.
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from decimal import Decimal
 from typing import Iterator, List, Tuple
+import uuid
 
-from score_differential import Mark
+from score_differential import Mark, UnitClass
 
 
 @dataclass
 class Contract:
-    unit: str  # the name this contract resolves YES for
+    unit_class_value: str  # the name this contract resolves YES for
     price: Decimal  # avg price paid, as a probability in [0, 1]
-    stake: Decimal  # amount of money risked on this contract
+    position: Decimal  # signed position size: positive = long, negative = short
+    id: uuid.UUID = field(default_factory=uuid.uuid4)  # mirrors PmContract.id; not used by settlement()
+    key: str = ""           # mirrors PmContract.key -- redundant with unit_class_value here, kept for parity
+    name: str = ""          # mirrors PmContract.name, e.g. "Lions to win"
+    alias: str = ""         # mirrors PmContract.alias, e.g. "lions"
+    unit_class: UnitClass = UnitClass.PARTICIPANT  # mirrors PmContract.unit_class
 
-    def payout_if_mark100(self) -> Decimal:
+    def payout(self, mark: Mark) -> Decimal:
+        """pnl = position * (outcome_value - price); position is the signed number of
+        contracts held, not a dollar stake. A negative position (short) flips the sign
+        of the result automatically."""
         if not (Decimal(0) < self.price <= Decimal(1)):
             raise ValueError(f"price must be in (0, 1], got {self.price}")
-        return self.stake / self.price - self.stake
-
-    def payout_if_mark0(self) -> Decimal:
-        return -self.stake
+        outcome_value = Decimal(1) if mark == Mark.MARK100 else Decimal(0)
+        return self.position * (outcome_value - self.price)
 
     def settlement(self, winner: str) -> Mark:
         """Determine how this contract resolves given the actual winner."""
-        return Mark.MARK100 if winner == self.unit else Mark.MARK0
+        return Mark.MARK100 if winner == self.unit_class_value else Mark.MARK0
 
 
 def possible_outcomes(contracts: List[Contract]) -> List[str]:
-    return sorted({c.unit for c in contracts})
+    return sorted({c.unit_class_value for c in contracts})
 
 
 def build_outcome_vector(contracts: List[Contract], outcomes: List[str]) -> Iterator[Tuple[str, Decimal]]:
     for winner in outcomes:
-        pnl = sum(
-            c.payout_if_mark100() if c.settlement(winner) == Mark.MARK100 else c.payout_if_mark0()
-            for c in contracts
-        )
+        pnl = sum(c.payout(c.settlement(winner)) for c in contracts)
         yield winner, pnl

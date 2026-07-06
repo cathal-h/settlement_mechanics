@@ -13,8 +13,8 @@ possible_outcomes = m.possible_outcomes
 build_outcome_vector = m.build_outcome_vector
 
 
-def mk(unit, price=Decimal("0.5"), stake=Decimal(100)):
-    return Contract(unit=unit, price=price, stake=stake)
+def mk(unit, price=Decimal("0.4"), stake=Decimal(100)):
+    return Contract(unit_class_value=unit, price=price, position=stake)
 
 
 # --- settlement ---
@@ -30,19 +30,19 @@ def test_settlement_mark0_when_winner_differs():
 # --- payouts ---
 
 def test_payout_if_mark100_is_net_pnl():
-    c = mk(unit="Lions", price=Decimal("0.5"), stake=Decimal(100))
-    assert c.payout_if_mark100() == Decimal(100)
+    c = mk(unit="Lions", price=Decimal("0.4"), stake=Decimal(100))
+    assert c.payout(Mark.MARK100) == Decimal(60)
 
 
-def test_payout_if_mark0_is_full_stake_loss():
+def test_payout_if_mark0_is_full_cost_basis_loss():
     c = mk(unit="Lions", stake=Decimal(100))
-    assert c.payout_if_mark0() == Decimal(-100)
+    assert c.payout(Mark.MARK0) == Decimal(-40)
 
 
 def test_payout_if_mark100_rejects_price_out_of_range():
     c = mk(unit="Lions", price=Decimal("0"))
     try:
-        c.payout_if_mark100()
+        c.payout(Mark.MARK100)
         assert False, "expected ValueError"
     except ValueError:
         pass
@@ -56,13 +56,13 @@ def test_possible_outcomes_is_sorted_unique_units():
 
 
 def test_build_outcome_vector_single_contract():
-    c = mk(unit="Lions", price=Decimal("0.5"), stake=Decimal(100))
+    c = mk(unit="Lions", price=Decimal("0.4"), stake=Decimal(100))
     vec = dict(build_outcome_vector([c], ["Lions", "Tigers"]))
-    assert vec == {"Lions": Decimal(100), "Tigers": Decimal(-100)}
+    assert vec == {"Lions": Decimal(60), "Tigers": Decimal(-40)}
 
 
 def test_build_outcome_vector_multi_contract_position():
-    lions = mk(unit="Lions", price=Decimal("0.5"), stake=Decimal(50))
+    lions = mk(unit="Lions", price=Decimal("0.4"), stake=Decimal(50))
     tigers = mk(unit="Tigers", price=Decimal("0.25"), stake=Decimal(25))
     bears = mk(unit="Bears", price=Decimal("0.25"), stake=Decimal(30))
     contracts = [lions, tigers, bears]
@@ -72,7 +72,7 @@ def test_build_outcome_vector_multi_contract_position():
 
     vec = dict(build_outcome_vector(contracts, outcomes))
     assert vec == {
-        "Bears": Decimal(15),    # Bears YES: +90 | Lions NO: -50 | Tigers NO: -25
-        "Lions": Decimal(-5),    # Bears NO: -30 | Lions YES: +50 | Tigers NO: -25
-        "Tigers": Decimal(-5),   # Bears NO: -30 | Lions NO: -50 | Tigers YES: +75
+        "Bears": Decimal("-3.75"),   # Bears YES: +22.5 | Lions NO: -20 | Tigers NO: -6.25
+        "Lions": Decimal("16.25"),   # Bears NO: -7.5 | Lions YES: +30 | Tigers NO: -6.25
+        "Tigers": Decimal("-8.75"),  # Bears NO: -7.5 | Lions NO: -20 | Tigers YES: +18.75
     }
