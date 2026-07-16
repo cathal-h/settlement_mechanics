@@ -1,0 +1,257 @@
+
+m_contracts = [
+    PmContract {
+        fixture_id: "20260715021E93D8",
+        market_id: "20260715021E93D8_fg_hc",
+        id: "20260715021E93D8_fg_hc_2.5",
+        participant: Some(
+            "argentina",
+        ),
+        name: "Argentina +2.5",
+        unit_class_value: Number(
+            2.5,
+        ),
+        settlement_mechanic: Diff,
+    },
+    PmContract {
+        fixture_id: "20260715021E93D8",
+        market_id: "20260715021E93D8_fg_hc",
+        id: "20260715021E93D8_fg_hc_2.5",
+        participant: Some(
+            "england",
+        ),
+        name: "England +2.5",
+        unit_class_value: Number(
+            2.5,
+        ),
+        settlement_mechanic: Diff,
+    },
+    PmContract {
+        fixture_id: "20260715021E93D8",
+        market_id: "20260715021E93D8_fg_hc",
+        id: "20260715021E93D8_fg_hc_1.5",
+        participant: Some(
+            "england",
+        ),
+        name: "England +1.5",
+        unit_class_value: Number(
+            1.5,
+        ),
+        settlement_mechanic: Diff,
+    },
+    PmContract {
+        fixture_id: "20260715021E93D8",
+        market_id: "20260715021E93D8_fg_hc",
+        id: "20260715021E93D8_fg_hc_-1.5",
+        participant: Some(
+            "england",
+        ),
+        name: "England -1.5",
+        unit_class_value: Number(
+            -1.5,
+        ),
+        settlement_mechanic: Diff,
+    },
+    PmContract {
+        fixture_id: "20260715021E93D8",
+        market_id: "20260715021E93D8_fg_hc",
+        id: "20260715021E93D8_fg_hc_-2.5",
+        participant: Some(
+            "argentina",
+        ),
+        name: "Argentina -2.5",
+        unit_class_value: Number(
+            -2.5,
+        ),
+        settlement_mechanic: Diff,
+    },
+    PmContract {
+        fixture_id: "20260715021E93D8",
+        market_id: "20260715021E93D8_fg_hc",
+        id: "20260715021E93D8_fg_hc_-1.5",
+        participant: Some(
+            "argentina",
+        ),
+        name: "Argentina -1.5",
+        unit_class_value: Number(
+            -1.5,
+        ),
+        settlement_mechanic: Diff,
+    },
+    PmContract {
+        fixture_id: "20260715021E93D8",
+        market_id: "20260715021E93D8_fg_hc",
+        id: "20260715021E93D8_fg_hc_-2.5",
+        participant: Some(
+            "england",
+        ),
+        name: "England -2.5",
+        unit_class_value: Number(
+            -2.5,
+        ),
+        settlement_mechanic: Diff,
+    },
+    PmContract {
+        fixture_id: "20260715021E93D8",
+        market_id: "20260715021E93D8_fg_hc",
+        id: "20260715021E93D8_fg_hc_1.5",
+        participant: Some(
+            "argentina",
+        ),
+        name: "Argentina +1.5",
+        unit_class_value: Number(
+            1.5,
+        ),
+        settlement_mechanic: Diff,
+    },
+    PmContract {
+        fixture_id: "20260715021E93D8",
+        market_id: "20260715021E93D8_fg_hc",
+        id: "20260715021E93D8_fg_hc_england",
+        participant: Some(
+            "england",
+        ),
+        name: "England",
+        unit_class_value: Number(
+            -0.5,
+        ),
+        settlement_mechanic: Diff,
+    },
+    PmContract {
+        fixture_id: "20260715021E93D8",
+        market_id: "20260715021E93D8_fg_hc",
+        id: "20260715021E93D8_fg_hc_argentina",
+        participant: Some(
+            "argentina",
+        ),
+        name: "Argentina",
+        unit_class_value: Number(
+            -0.5,
+        ),
+        settlement_mechanic: Diff,
+    },
+    PmContract {
+        fixture_id: "20260715021E93D8",
+        market_id: "20260715021E93D8_fg_hc",
+        id: "20260715021E93D8_fg_hc_draw",
+        participant: None,
+        name: "Draw",
+        unit_class_value: String(
+            "draw",
+        ),
+        settlement_mechanic: Exact,
+    },
+]
+
+pm_markets = {
+    NormalTimeHandicap: PmMarket {
+        fixture_id: "20260715021E93D8",
+        market_id: "20260715021E93D8_fg_hc",
+        dimensions: [],
+        properties: PmProperties {
+            settlement_mechanic: Diff,
+            number_of_winners: 1,
+            dead_heat_possible: false,
+            push_possible: false,
+            two_way_possible: false,
+            can_partially_settle: false,
+        },
+        contracts: [
+            "20260715021E93D8_fg_hc_2.5",
+            "20260715021E93D8_fg_hc_2.5",
+            "20260715021E93D8_fg_hc_1.5",
+            "20260715021E93D8_fg_hc_-1.5",
+            "20260715021E93D8_fg_hc_-2.5",
+            "20260715021E93D8_fg_hc_-1.5",
+            "20260715021E93D8_fg_hc_-2.5",
+            "20260715021E93D8_fg_hc_1.5",
+            "20260715021E93D8_fg_hc_england",
+            "20260715021E93D8_fg_hc_argentina",
+            "20260715021E93D8_fg_hc_draw",
+        ],
+    },
+    SecondHalfAsianHandicap: PmMarket {
+        fixture_id: "20260715021E93D8",
+        market_id: "20260715021E93D8_2h_hc",
+        dimensions: [],
+        properties: PmProperties {
+            settlement_mechanic: Diff,
+            number_of_winners: 1,
+            dead_heat_possible: false,
+            push_possible: false,
+            two_way_possible: false,
+            can_partially_settle: false,
+        },
+        contracts: [],
+    },
+    FirstHalfAsianHandicap: PmMarket {
+        fixture_id: "20260715021E93D8",
+        market_id: "20260715021E93D8_1h_hc",
+        dimensions: [],
+        properties: PmProperties {
+            settlement_mechanic: Diff,
+            number_of_winners: 1,
+            dead_heat_possible: false,
+            push_possible: false,
+            two_way_possible: false,
+            can_partially_settle: false,
+        },
+        contracts: [],
+    },
+    NormalTimeTotal: PmMarket {
+        fixture_id: "20260715021E93D8",
+        market_id: "20260715021E93D8_fg_tot",
+        dimensions: [],
+        properties: PmProperties {
+            settlement_mechanic: Diff,
+            number_of_winners: 1,
+            dead_heat_possible: false,
+            push_possible: false,
+            two_way_possible: false,
+            can_partially_settle: false,
+        },
+        contracts: [],
+    },
+    NormalTimeTeamTotal: PmMarket {
+        fixture_id: "20260715021E93D8",
+        market_id: "20260715021E93D8_fg_team_tot",
+        dimensions: [],
+        properties: PmProperties {
+            settlement_mechanic: Diff,
+            number_of_winners: 1,
+            dead_heat_possible: false,
+            push_possible: false,
+            two_way_possible: false,
+            can_partially_settle: false,
+        },
+        contracts: [],
+    },
+    ToAdvance: PmMarket {
+        fixture_id: "20260715021E93D8",
+        market_id: "20260715021E93D8_to_advance",
+        dimensions: [],
+        properties: PmProperties {
+            settlement_mechanic: Diff,
+            number_of_winners: 1,
+            dead_heat_possible: false,
+            push_possible: false,
+            two_way_possible: false,
+            can_partially_settle: false,
+        },
+        contracts: [],
+    },
+}
+
+pm_fixture = PmFixture {
+    fixture_id: "20260715021E93D8",
+    dimensions: [],
+    base_template: None,
+    markets: [
+        "20260715021E93D8_fg_hc",
+        "20260715021E93D8_2h_hc",
+        "20260715021E93D8_1h_hc",
+        "20260715021E93D8_fg_tot",
+        "20260715021E93D8_fg_team_tot",
+        "20260715021E93D8_to_advance",
+    ],
+}
